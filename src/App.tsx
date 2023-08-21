@@ -1,8 +1,9 @@
 import { useState } from 'react'
+import { StyleProvider } from '@ant-design/cssinjs'
 import {
   createBrowserRouter,
   RouterProvider,
-} from "react-router-dom";
+} from 'react-router-dom';
 import Home from  '@pages/home'
 import Login from '@pages/login'
 const router = createBrowserRouter([
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
 ]);
 function App() {
   
-  return <RouterProvider router={router} />
+  return <StyleProvider hashPriority="high"><RouterProvider router={router} /></StyleProvider>
 }
 
 export default App
