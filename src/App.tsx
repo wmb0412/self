@@ -1,21 +1,6 @@
-import { useState } from 'react'
 import { StyleProvider } from '@ant-design/cssinjs'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from 'react-router-dom';
-import Home from  '@pages/home'
-import Login from '@pages/login'
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-]);
+import { RouterProvider } from 'react-router-dom';
+import router from '@/routes'
 function App() {
   
   return <StyleProvider hashPriority="high"><RouterProvider router={router} /></StyleProvider>

@@ -9,8 +9,13 @@ export default defineConfig({
     alias: {
       "@": getPath('src'),
       "@pages": getPath('src/pages'),
+      "@components": getPath('src/components'),
+      "@layouts": getPath('src/layouts'),
       "@assets": getPath('src/assets'),
-      "@utils": getPath('src/utils')
+      "@utils": getPath('src/utils'),
+      "@styles": getPath('src/styles'),
+      "@request": getPath('src/request'),
+      "@routes": getPath('src/routes'),
     }
   },
   plugins: [react()],

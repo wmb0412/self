@@ -14,6 +14,9 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    '@typescript-eslint/no-explicit-any': ['off']
+    '@typescript-eslint/no-explicit-any': ['off'],
+    'space-infix-ops': ['warn', { int32Hint: false }],
+    'object-curly-spacing': ['warn', 'always'],
+    'array-bracket-spacing': ['warn', 'always'],
   },
 }

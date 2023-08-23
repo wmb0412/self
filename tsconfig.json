@@ -23,12 +23,14 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@components": ["src/components/*"],
-      "@assets": ["src/assets/*"],
-      "@global": ["src/global/*"],
-      "@layouts": ["src/layouts/*"],
+      "@components/*": ["src/components/*"],
+      "@assets/*": ["src/assets/*"],
+      "@layouts/*": ["src/layouts/*"],
       "@pages/*": ["src/pages/*"],
-      "@utils": ["src/utils/*"]
+      "@routes/*": ["src/routes/*"],
+      "@utils/*": ["src/utils/*"],
+      "@styles/*": ["src/styles/*"],
+      "@request/*": ["src/request/*"]
     }
   },
   "include": ["src"],
