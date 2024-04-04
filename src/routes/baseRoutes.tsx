@@ -2,6 +2,7 @@ import { lazy } from 'react'
 
 const Home = lazy(() => import('@pages/home'))
 const User = lazy(() => import('@pages/user'))
+const Sheet = lazy(() =>import('@pages/sheet'))
 const Page404 = lazy(() =>import('@pages/page404'))
 
 
@@ -18,8 +19,13 @@ const baseRouter = [
       element: <User />
   },
   {
-      path: "*",
-      element: <Page404 />
-  }
+      path: "/sheet",
+      title: 'sheet',
+      element: <Sheet />
+  },
+  {
+    path: "*",
+    element: <Page404 />
+}
 ]
 export default baseRouter
