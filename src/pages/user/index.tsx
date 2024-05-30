@@ -1,25 +1,18 @@
 import React, { useState } from 'react'
-import { Table } from 'antd'
+import { Button, Table } from 'antd'
 import { useRequest } from 'ahooks'
-import { userList } from '@/request/user'
+import { deleteUserApi, getUserListApi } from '@/request/user'
+import AddUer from './AddUer'
+import UpdateUer from './UpdateUser'
 
 
-const columns = [
-  {
-    dataIndex: 'id',
-    title: 'id'
-  },
-  {
-    dataIndex: 'username',
-    title: '用户名'
-  }
-]
+
 export default function UserList() {
   const [ params, setParams ] = useState({
     pageSize: 10,
     pageNo: 1,
   })
-  const { data: res } = useRequest(() => userList(params), {
+  const { data: res, run } = useRequest(() => getUserListApi(params), {
     refreshDeps: [ params ]
   })
   const onChange = (nextPageNo, nextPageSize) => {
@@ -29,9 +22,36 @@ export default function UserList() {
     })
   }
   const { pageNo, pageSize } = params
+  const refresh = () => {
+    run()
+  }
+  const deleteUser = async (id) => {
+   await deleteUserApi(id)
+   refresh()
+  }
+  const columns = [
+    {
+      dataIndex: 'id',
+      title: 'id'
+    },
+    {
+      dataIndex: 'username',
+      title: '用户名'
+    },
+    {
+      dataIndex: 'option',
+      render: (_, record) => {
+        return <>
+          <Button onClick={() => deleteUser(record.id)} > 删除</Button>
+          <UpdateUer refresh={refresh} user={record} />
+        </>
+      }
+    }
+  ]
   return (
     <div>
-      <Table rowKey="id" columns={columns} dataSource={res?.data?.list} pagination={{ total: res?.data?.total, current: pageNo, pageSize, onChange }} />
+      <AddUer refresh={refresh} />
+      <Table size="small" rowKey="id" columns={columns} dataSource={res?.data?.list} pagination={{ total: res?.data?.total, current: pageNo, pageSize, onChange }} />
     </div>
   )
 }

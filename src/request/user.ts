@@ -1,4 +1,10 @@
-import {postApi} from './index'
-import { IUserListData, IUserListRes } from './user.d'
+import { postApi, deleteApi, getApi, putApi } from './index'
+import { IUserListData, IUserListRes, UserAdd, UserUpdate } from './user.d'
 
-export const userList = async (data?: IUserListData) => postApi<IUserListRes>('user/list', data)
+export const getUserListApi = async (params?: IUserListData) => getApi<IUserListRes>('user/list', { params })
+
+export const userAddApi = async (data?: UserAdd) => postApi<IUserListRes>('user', data)
+
+export const deleteUserApi = async (id: number) => deleteApi(`user/${id}`)
+
+export const putUserApi = async (id, data: UserUpdate) => putApi<IUserListRes>(`user/${id}`, data)

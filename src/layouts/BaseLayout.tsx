@@ -7,7 +7,7 @@ import baseRouter from '@routes/baseRoutes';
 const { Header, Sider, Content } = Layout;
 
 const BaseLayout: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [ collapsed, setCollapsed ] = useState(false);
   const navigate = useNavigate()
   const {
     token: { colorBgContainer },
@@ -20,14 +20,14 @@ const BaseLayout: React.FC = () => {
     label: item.title,
   })), [])
   return (
-    <Layout className="h-full">
+    <Layout className="h-full" style={{ minHeight: '100vh' }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
           mode="inline"
           onClick={onClick}
-          defaultSelectedKeys={['1']}
+          defaultSelectedKeys={[ '1' ]}
           items={menuItems}
         />
       </Sider>
