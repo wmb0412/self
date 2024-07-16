@@ -1,4 +1,4 @@
-import { IPageData, IPageRes } from './type.d'
+import { IPageData, IPageRes } from './type'
 
 interface User {
     id: number;

@@ -1,35 +1,42 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Sheet } from '@leankylin-sheet/core'
-import { Workbook, WorkbookInstance } from "@leankylin-sheet/react";
-import "@leankylin-sheet/react/dist/index.css"
-import mockData from './data';
+import { useEffect, useRef, useState } from 'react';
+import { Sheet, api } from '@leankylin-sheet/core';
+import { omit } from 'lodash-es';
+import { Workbook, WorkbookInstance } from '@leankylin-sheet/react';
+import '@leankylin-sheet/react/dist/index.css';
+import { getSheetByIdApi, createSheet } from '@/api/sheet';
+import { useMemoizedFn, useRequest } from 'ahooks';
 export default function SheetPage() {
-  const ref = useRef<WorkbookInstance>(null)
-  const [ data, setData ] = useState<Sheet[]>([ mockData ] as any);
-  const onChange = useCallback((d: Sheet[]) => {
-    setData(d);
-  }, []);
+  const ref = useRef<WorkbookInstance>(null);
+  const [ data, setData ] = useState<Sheet[]>([ {} ] as any);
+  const { loading } = useRequest(() => getSheetByIdApi(1), {
+    onSuccess(res) {
+      setData(res.context ?? [ {} ]);
+    },
+  });
+  const onChange = useMemoizedFn((d: Sheet[]) => {
+    createSheet({
+      id: 1,
+      context: d.map((item) => ({
+        ...omit(item, 'data'),
+        celldata: api.dataToCelldata(item.data),
+      })),
+    });
+  });
   useEffect(() => {
-    if(ref.current){
-      // 初始化的时候手动计算一下公式
-      ref.current.calculateFormula()
+    if (ref.current) {
+      ref.current.calculateFormula();
     }
-    
-  }, [ ])
-  const afterCellMouseDown = useCallback((...e) => {
-    console.log('点击事件哈哈哈', ...e)
-  }, [])
-  const beforeCellMouseDown = useCallback((...e) => {
-    console.log('zzzz', ...e)
-    return true
-  }, [])
+  }, []);
+  if (loading) {
+    return null;
+  }
   return (
     <div className="w-full h-[600px]" onClick={() => console.log('在政治')}>
-       <Workbook ref={ref} showToolbar={false} data={data} onChange={onChange} showSheetTabs={false} hooks={{
-        afterCellMouseDown,
-        beforeCellMouseDown
-        // afterSelectionChange: afterCellMouseDown
-       }} />
+      <Workbook
+        ref={ref}
+        data={data}
+        onChange={onChange}
+      />
     </div>
-  )
+  );
 }

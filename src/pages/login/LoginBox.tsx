@@ -1,17 +1,14 @@
-import React from "react";
 import { Form, Input, Button } from "antd";
 import { useRequest } from 'ahooks'
-import { signIn } from "@/request/auth";
+import { signIn } from "@/api/auth";
 import { useNavigate } from "react-router-dom";
 export default function LoginBox() {
   const [ form ] = Form.useForm();
   const navigate = useNavigate()
   const { loading, runAsync } = useRequest(signIn, {
     manual: true,
-    onSuccess: (res) => {
-       if(res.code === 0){
-            navigate('/')
-       }
+    onSuccess: () => {
+      navigate('/')
     }
   })
   return (

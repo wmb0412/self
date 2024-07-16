@@ -14,6 +14,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    '@typescript-eslint/no-duplicate-enum-values': ['off'],
     '@typescript-eslint/no-explicit-any': ['off'],
     'space-infix-ops': ['warn', { int32Hint: false }],
     'object-curly-spacing': ['warn', 'always'],

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Table } from 'antd'
 import { useRequest } from 'ahooks'
-import { deleteUserApi, getUserListApi } from '@/request/user'
+import { deleteUserApi, getUserListApi } from '@/api/user'
 import AddUer from './AddUer'
 import UpdateUer from './UpdateUser'
 
@@ -12,7 +12,7 @@ export default function UserList() {
     pageSize: 10,
     pageNo: 1,
   })
-  const { data: res, run } = useRequest(() => getUserListApi(params), {
+  const { data, run } = useRequest(() => getUserListApi(params), {
     refreshDeps: [ params ]
   })
   const onChange = (nextPageNo, nextPageSize) => {
@@ -51,7 +51,7 @@ export default function UserList() {
   return (
     <div>
       <AddUer refresh={refresh} />
-      <Table size="small" rowKey="id" columns={columns} dataSource={res?.data?.list} pagination={{ total: res?.data?.total, current: pageNo, pageSize, onChange }} />
+      <Table size="small" rowKey="id" columns={columns} dataSource={data?.list} pagination={{ total: data?.total, current: pageNo, pageSize, onChange }} />
     </div>
   )
 }

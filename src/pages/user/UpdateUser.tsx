@@ -1,4 +1,4 @@
-import { putUserApi } from '@/request/user'
+import { putUserApi } from '@/api/user'
 import { useRequest } from 'ahooks'
 import { Button, Form, Input, Modal } from 'antd'
 import React, { useState } from 'react'
